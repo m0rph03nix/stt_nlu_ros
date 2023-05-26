@@ -1,0 +1,6 @@
+stt_nlu_msgs/Result_items person
+stt_nlu_msgs/Result_items object
+stt_nlu_msgs/Result_items drink
+stt_nlu_msgs/Result_items location
+stt_nlu_msgs/Result_items action
+stt_nlu_msgs/Result_items ack

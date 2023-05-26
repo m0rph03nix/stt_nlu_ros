@@ -1,0 +1,8 @@
+#goal
+stt_nlu_msgs/Goals_NLU waitfor
+---
+#result
+stt_nlu_msgs/Results_NLU answer
+---
+#feedback
+int32 feedback
