@@ -21,6 +21,7 @@ class NLExpectationsServer(object):
 
         feedback = NLExpectationsFeedback()
         result = NLExpectationsResult()
+        goal_group=goal.waitfor.goal_group
 
         rospy.loginfo("Begin NLExpectations action.")
 
@@ -28,6 +29,8 @@ class NLExpectationsServer(object):
 
         id = parseNLP.get_id()
         parseNLP.set_goal(goal.waitfor)
+
+        is_result_set= False
         
 
         # Exécution d'une boucle pendant 10 secondes interruptible
@@ -46,12 +49,18 @@ class NLExpectationsServer(object):
             id_cmp = parseNLP.get_id()
             if( id != id_cmp):
                 result.answer = parseNLP.get_result()
-
+                result.answer.goal_group=goal_group
                 self.server.set_succeeded(result)
+                is_result_set = True
 
                 print(result.answer)
 
             rate.sleep()
+
+        #Need to check if no answer
+        if(not is_result_set):
+            result.answer.goal_group=goal_group
+            self.server.set_succeeded(result)
 
         # Fin de l'exécution de l'action
         rospy.loginfo("End of NLExpectations action.")       

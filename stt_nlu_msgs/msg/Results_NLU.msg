@@ -4,3 +4,4 @@ stt_nlu_msgs/Result_items drink
 stt_nlu_msgs/Result_items location
 stt_nlu_msgs/Result_items action
 stt_nlu_msgs/Result_items ack
+string goal_group
