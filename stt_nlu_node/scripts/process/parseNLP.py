@@ -131,7 +131,7 @@ class ParseNLP(object):
                         resi.data = str(item)
                         setattr(res, res.__slots__[res.__slots__.index(attr)], resi)
 
-                elif (len(transcriptions)-1) not in self.last_ids:
+                elif ((len(transcriptions)-1) not in self.last_ids) and (len(transcriptions)>=2):
                     item = self.find_element_in_sentence(value, transcriptions[-2])
                     if item:
                         if attr in res.__slots__:
@@ -152,7 +152,7 @@ class ParseNLP(object):
                             res.ack.data = "yes"
                         elif item in ["no"]:
                             res.ack.data = "no"
-                    elif (len(transcriptions)-1) not in self.last_ids:
+                    elif ((len(transcriptions)-1) not in self.last_ids) and (len(transcriptions)>=2) :
                         item = self.find_element_in_sentence(["yes", "no", "ok", "okay" ], transcriptions[-2])
                         if item:
                             item = item.lower()
