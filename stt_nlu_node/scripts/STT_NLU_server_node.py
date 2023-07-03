@@ -31,9 +31,8 @@ class NLExpectationsServer(object):
         parseNLP.set_goal(goal.waitfor)
 
         is_result_set= False
-
-        id_cmp = parseNLP.get_id()
         
+
         # Exécution d'une boucle pendant 10 secondes interruptible
         rate = rospy.Rate(2)  #  2 Hz
         for i in range(20):
@@ -47,16 +46,15 @@ class NLExpectationsServer(object):
             feedback.feedback = 10 - (i/2) # Compte à rebour timeout
             self.server.publish_feedback(feedback)
 
-            
+            id_cmp = parseNLP.get_id()
             if( id != id_cmp):
                 result.answer = parseNLP.get_result()
                 result.answer.goal_group=goal_group
                 self.server.set_succeeded(result)
                 is_result_set = True
+                parseNLP.last_ids.append(id_cmp)
 
                 print(result.answer)
-
-            id_cmp = parseNLP.get_id()
 
             rate.sleep()
 

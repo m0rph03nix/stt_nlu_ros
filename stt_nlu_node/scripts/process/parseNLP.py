@@ -18,6 +18,8 @@ class ParseNLP(object):
         # Get the container ID or name
         self.container_id = 'whisper.cpp'
 
+        self.last_ids = []
+
         check_docker = False
         timeout = 10
 
@@ -129,6 +131,16 @@ class ParseNLP(object):
                         resi.data = str(item)
                         setattr(res, res.__slots__[res.__slots__.index(attr)], resi)
 
+                elif (len(transcriptions)-1) not in self.last_ids:
+                    item = self.find_element_in_sentence(value, transcriptions[-2])
+                    if item:
+                        if attr in res.__slots__:
+
+                            resi = Result_items()
+                            #print()
+                            resi.data = str(item)
+                            setattr(res, res.__slots__[res.__slots__.index(attr)], resi)                    
+
 
             elif attr == "ack":
                 value = self.goal.ack
@@ -140,6 +152,16 @@ class ParseNLP(object):
                             res.ack.data = "yes"
                         elif item in ["no"]:
                             res.ack.data = "no"
+                    elif (len(transcriptions)-1) not in self.last_ids:
+                        item = self.find_element_in_sentence(["yes", "no", "ok", "okay" ], transcriptions[-2])
+                        if item:
+                            item = item.lower()
+                            if item in ['yes', 'ok', 'okay'] :
+                                res.ack.data = "yes"
+                            elif item in ["no"]:
+                                res.ack.data = "no"
+                        else:
+                            res.ack.data = ''
                     else:
                         res.ack.data = ''
 
