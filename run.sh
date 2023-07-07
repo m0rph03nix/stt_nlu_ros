@@ -20,5 +20,6 @@ docker run --rm -it \
         --language ${LANG} \
         --step 0 \
         -t 6 \
-        --length 5000 \
-        -vth 0.3 \
+        --length 3000 \
+        -vth 0.7 \
+        -fth 155

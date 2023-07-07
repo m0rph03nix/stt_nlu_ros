@@ -77,7 +77,8 @@ class ParseNLP(object):
             transcription = text[start_index:end_index]
             transcription = re.sub(r'\[.*?\]', '', transcription)  # Ignore content between brackets
             transcription = re.sub(r'\(.*?\)', '', transcription)  # Ignore content between parentheses
-            transcriptions.append(transcription.strip())
+            if len(transcription) >= 2 :
+                transcriptions.append(transcription.strip())
 
         return transcriptions
 

@@ -41,14 +41,16 @@ class NLExpectationsClient(object):
                 if attr in ["person", "drink", "location", "action", "object", "ack"]:
                     value = getattr(result.answer, attr)
                     if value.data != None and value.data != '':
-                        print("{name}: {value}".format(name=attr, value=value.data) )
+                        print("{name}: {value} \n".format(name=attr, value=value.data) )
+
+            
 
                 # elif attr == "ack":
                 #     value = result.answer.ack
                 #     if value.data != None and value.data != '':
                 #         print("{name}: {value}".format(name=attr, value=value.data) )
 
-
+            print("RAW TRANSCRIPT: {value} \n".format(value = result) )
 
 if __name__ == '__main__':
     rospy.init_node('nl_expectations_client')
