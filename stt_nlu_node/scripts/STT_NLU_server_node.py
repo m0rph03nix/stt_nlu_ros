@@ -35,7 +35,7 @@ class NLExpectationsServer(object):
 
         # Exécution d'une boucle pendant 10 secondes interruptible
         rate = rospy.Rate(2)  #  2 Hz
-        for i in range(20):
+        for i in range(60):
             if self.server.is_preempt_requested():
                 # Le client a demandé de préempter l'action
                 rospy.loginfo("Action NLExpectations preempted.")
@@ -43,19 +43,47 @@ class NLExpectationsServer(object):
                 return
 
             # Mise à jour du feedback
-            feedback.feedback = 10 - (i/2) # Compte à rebour timeout
+            feedback.feedback = 30 - (i/2) # Compte à rebour timeout
             self.server.publish_feedback(feedback)
 
-            id_cmp = parseNLP.get_id()
-            if( id != id_cmp):
-                result.answer = parseNLP.get_result()
-                result.answer.goal_group=goal_group
-                self.server.set_succeeded(result)
-                is_result_set = True
-
-                print(result.answer)
-
             rate.sleep()
+
+            #while not rospy.is_shutdown():
+
+            id_cmp = parseNLP.get_id()
+            
+            if( id < id_cmp):
+
+                
+
+                result.answer = parseNLP.get_result()
+
+                if (    result.answer.ack.data      == '' and
+                        result.answer.action.data   == '' and
+                        result.answer.drink.data    == '' and
+                        result.answer.location.data == '' and
+                        result.answer.object.data   == '' and
+                        result.answer.person.data   == ''       ):
+                    
+                    print("\nEmpty\n")
+
+                else:
+
+                    result.answer.goal_group=goal_group
+                    self.server.set_succeeded(result)
+                    is_result_set = True
+
+                    print(result.answer)
+
+                    print("\nGot Something\n")
+
+
+                    id = id_cmp
+                    break
+
+
+            #rate.sleep()
+            print(i)
 
         #Need to check if no answer
         if(not is_result_set):

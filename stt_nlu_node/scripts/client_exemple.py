@@ -29,8 +29,8 @@ class NLExpectationsClient(object):
         # Envoi de l'objectif (goal) au serveur
         self.client.send_goal(goal)
 
-        # Attente du résultat avec un délai maximum de 10 secondes
-        self.client.wait_for_result(rospy.Duration(10))
+        # Attente du résultat avec un délai maximum de ... secondes
+        self.client.wait_for_result(rospy.Duration(30))
 
         # Récupération du résultat de l'action
         result = self.client.get_result()

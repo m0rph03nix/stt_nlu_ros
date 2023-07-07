@@ -7,7 +7,7 @@ LANG="en"
 
 script_dir="$(realpath "$(dirname "${0}")")"
 
-if [ ! $(docker images | grep -q "whisper-${MODEL}" ) ]; then
+if [ ! $(docker images | grep "whisper-${MODEL}" ) ]; then
     docker build -t whisper-${MODEL} --build-arg model=${MODEL} "${script_dir}"
 fi
 
@@ -21,4 +21,5 @@ docker run --rm -it \
         --step 0 \
         -t 6 \
         --length 5000 \
-        -vth 0.3 \
+        -vth 0.7 \
+        -fth 155 \
