@@ -119,7 +119,7 @@ class ParseNLP(object):
         for i,attr in enumerate(self.goal.__slots__):
             if attr in ["person", "drink", "location", "action", "object"]:
                 value = getattr(self.goal, attr)
-                print(attr, value)
+                #print(attr, value)
                 item = self.find_element_in_sentence(value, transcriptions[-1])
                 if item:
                     if attr in res.__slots__:

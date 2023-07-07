@@ -22,15 +22,19 @@ class NLExpectationsClient(object):
 
         goal.waitfor.action = ['Go', 'Take', 'Give']
 
+        goal.waitfor.object = ['banana', 'ball', 'pringles']
+
         # Wait for an anwser among ["yes", "no", "ok", "okay" ]
         goal.waitfor.ack.data = True
+
+        goal.expected_timeout.data = 30
 
 
         # Envoi de l'objectif (goal) au serveur
         self.client.send_goal(goal)
 
         # Attente du résultat avec un délai maximum de ... secondes
-        self.client.wait_for_result(rospy.Duration(30))
+        self.client.wait_for_result(rospy.Duration(goal.expected_timeout.data ))
 
         # Récupération du résultat de l'action
         result = self.client.get_result()

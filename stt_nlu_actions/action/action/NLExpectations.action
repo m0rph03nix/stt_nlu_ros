@@ -1,5 +1,6 @@
 #goal
 stt_nlu_msgs/Goals_NLU waitfor
+std_msgs/Int16 expected_timeout    # e.g time in second before action stops
 ---
 #result
 stt_nlu_msgs/Results_NLU answer
