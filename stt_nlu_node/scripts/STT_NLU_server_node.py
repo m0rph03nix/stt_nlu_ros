@@ -33,8 +33,6 @@ class NLExpectationsServer(object):
         parseNLP.set_goal(goal.waitfor)
 
         is_result_set= False
-
-        
         
 
         # Exécution d'une boucle pendant 10 secondes interruptible
@@ -52,12 +50,8 @@ class NLExpectationsServer(object):
 
             rate.sleep()
 
-            #while not rospy.is_shutdown():
-
             id_cmp = parseNLP.get_id()
-
-            
-            
+          
             if( id < id_cmp):
 
                 result.answer = parseNLP.get_result()
@@ -80,9 +74,6 @@ class NLExpectationsServer(object):
                     print("\nGot Something\n")
 
                     print(result.answer)
-
-                    
-
 
                     id = id_cmp
                     break
